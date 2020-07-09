@@ -3,7 +3,7 @@ Name:           ukui-settings-daemon
 Version:        1.2.1
 Release:        1
 Summary:        daemon handling the UKUI session settings
-License:        GPL-3+ GPL-2+
+License:        GPL-3+ GPL-2+ LGPL-2+ LGPL-2.1+ MIT~OldStyle+RedHat MIT~OldStyleWithDisclaimer+RedHat 
 URL:            http://www.ukui.org
 Source0:        %{name}-%{version}.tar.gz
 
