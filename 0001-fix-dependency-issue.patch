@@ -1,0 +1,35 @@
+diff -ur ukui-settings-daemon-3.0.1/plugins/media-keys/usd-media-keys-manager.c ukui-settings-daemon-3.0.1~/plugins/media-keys/usd-media-keys-manager.c
+--- ukui-settings-daemon-3.0.1/plugins/media-keys/usd-media-keys-manager.c	2019-05-27 15:48:18.000000000 +0800
++++ ukui-settings-daemon-3.0.1~/plugins/media-keys/usd-media-keys-manager.c	2020-10-30 14:36:42.336523345 +0800
+@@ -995,19 +994,19 @@
+ static void
+ do_screenshot_action (UsdMediaKeysManager *manager)
+ {
+-        execute (manager, "mate-screenshot",FALSE,FALSE);
++        //execute (manager, "mate-screenshot",FALSE,FALSE);
+ }
+ 
+ static void
+ do_area_screenshot_action (UsdMediaKeysManager *manager)
+ {
+-        execute (manager, "mate-screenshot -a",FALSE,FALSE);
++        //execute (manager, "mate-screenshot -a",FALSE,FALSE);
+ }
+ 
+ static void
+ do_window_screenshot_action (UsdMediaKeysManager *manager)
+ {
+-        execute (manager, "mate-screenshot -w",FALSE,FALSE);
++        //execute (manager, "mate-screenshot -w",FALSE,FALSE);
+ }
+ 
+ 
+@@ -1052,7 +1051,7 @@
+                 } else if ((cmd = g_find_program_in_path ("tracker-search-tool"))) {
+                         execute (manager, "tracker-search-tool", FALSE, FALSE);
+                 } else {
+-                        execute (manager, "mate-search-tool", FALSE, FALSE);
++                        //execute (manager, "mate-search-tool", FALSE, FALSE);
+                 }
+                 g_free (cmd);
+                 break;
