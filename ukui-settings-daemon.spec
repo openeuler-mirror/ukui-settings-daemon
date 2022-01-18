@@ -1,15 +1,15 @@
 %define debug_package %{nil}
 Name:           ukui-settings-daemon
 Version:        3.0.1
-Release:        1
+Release:        2
 Summary:        daemon handling the UKUI session settings
 License:        GPL-2.0, GPL-2+, GPL-2.1, LGPL-2.1+, GPL-3+, LGPL-2+, MIT~OldStyleWithDisclaimer+RedHat, MIT~OldStyle+RedHat
 URL:            http://www.ukui.org
 Source0:        %{name}-%{version}.tar.gz
 
 patch0:  0001-fix-dependency-issue.patch
-
-BuildRequires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-devel glib2-devel gtk3-devel libnotify-devel nss-devel polkit-devel pulseaudio-devel startup-notification-devel libX11-devel libXext-devel libXi-devel libxklavier-devel libXrandr-devel libXt-devel mate-desktop-libs xorg-x11-server-utils libusb-devel
+patch1:  0002-Modify-the-shortcut-key-prompt.patch
+BuildRequires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-devel glib2-devel gtk3-devel libnotify-devel nss-devel polkit-devel pulseaudio-libs-devel startup-notification-devel libX11-devel libXext-devel libXi-devel libxklavier-devel libXrandr-devel libXt-devel mate-desktop-libs xorg-x11-server-utils libusb-devel
 #x11proto-kb-devel
 BuildRequires:mate-desktop-devel >= 1.18
 BuildRequires:libmatekbd-devel >= 1.18 
@@ -35,7 +35,7 @@ Requires: mate-desktop-libs ukui-polkit ukui-settings-daemon-common imwheel xorg
  
 %package common
 Summary:	daemon handling the UKUI session settings (common files)
-Requires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-devel glib2-devel gtk3-devel libnotify-devel nss-devel polkit-devel pulseaudio-devel startup-notification-devel libX11-devel libXext-devel libXi-devel libxklavier-devel libXrandr-devel libXt-devel mate-desktop-libs xorg-x11-server-utils mate-desktop-devel libmatekbd-devel libmatemixer-devel mate-common
+Requires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-devel glib2-devel gtk3-devel libnotify-devel nss-devel polkit-devel pulseaudio-libs-devel startup-notification-devel libX11-devel libXext-devel libXi-devel libxklavier-devel libXrandr-devel libXt-devel mate-desktop-libs xorg-x11-server-utils mate-desktop-devel libmatekbd-devel libmatemixer-devel mate-common
 
 %description common
  This package contains the daemon which is responsible for setting the
@@ -58,7 +58,7 @@ Requires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-deve
 
 %package devel
 Summary:	daemon handling the UKUI session settings (development files)
-Requires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-devel glib2-devel gtk3-devel libnotify-devel nss-devel polkit-devel pulseaudio-devel startup-notification-devel libX11-devel libXext-devel libXi-devel libxklavier-devel libXrandr-devel libXt-devel mate-desktop-libs xorg-x11-server-utils mate-desktop-devel libmatekbd-devel libmatemixer-devel mate-common
+Requires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-devel glib2-devel gtk3-devel libnotify-devel nss-devel polkit-devel pulseaudio-libs-devel startup-notification-devel libX11-devel libXext-devel libXi-devel libxklavier-devel libXrandr-devel libXt-devel mate-desktop-libs xorg-x11-server-utils mate-desktop-devel libmatekbd-devel libmatemixer-devel mate-common
 Requires: ukui-settings-daemon
 
 %description devel
@@ -83,6 +83,7 @@ Requires: ukui-settings-daemon
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 ./autogen.sh --prefix=/usr --sysconfdir=/etc --libdir=/usr/lib64 --sysconfdir=/etc
@@ -122,6 +123,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 
 %changelog
+* Thu Dec 16 2021 peijiankang <peijiankang@kylinos.cn> - 3.0.1-2
+- Modify the shortcut key prompt
+
 * Mon Oct 26 2020 douyan <douyan@kylinos.cn> - 3.0.1-1
 - update to upstream version 3.0.0-1+1026
 
