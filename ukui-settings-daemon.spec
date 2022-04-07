@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           ukui-settings-daemon
 Version:        3.0.1
-Release:        2
+Release:        3
 Summary:        daemon handling the UKUI session settings
 License:        GPL-2.0, GPL-2+, GPL-2.1, LGPL-2.1+, GPL-3+, LGPL-2+, MIT~OldStyleWithDisclaimer+RedHat, MIT~OldStyle+RedHat
 URL:            http://www.ukui.org
@@ -123,6 +123,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 
 %changelog
+* Wed Apr 06 2022 tanyulong <tanyulong@kylinos.cn> - 3.0.1-3
+- add yaml file
+
 * Thu Dec 16 2021 peijiankang <peijiankang@kylinos.cn> - 3.0.1-2
 - Modify the shortcut key prompt
 
