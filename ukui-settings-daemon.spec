@@ -1,11 +1,12 @@
 %define debug_package %{nil}
 Name:           ukui-settings-daemon
 Version:        3.0.1
-Release:        4
+Release:        5
 Summary:        daemon handling the UKUI session settings
 License:        GPL-2.0, GPL-2+, GPL-2.1, LGPL-2.1+, GPL-3+, LGPL-2+, MIT~OldStyleWithDisclaimer+RedHat, MIT~OldStyle+RedHat
 URL:            http://www.ukui.org
 Source0:        %{name}-%{version}.tar.gz
+Patch1:         0001-modify-compile-error.patch
 
 BuildRequires: intltool 
 BuildRequires: libcanberra-devel 
@@ -112,6 +113,7 @@ Requires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-deve
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 qmake-qt5
@@ -158,6 +160,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/ &> /dev/null || :
 
 
 %changelog
+* Wed May 11 2022 peijiankang <peijiankang@kylinos.cn> - 3.0.1-5
+- modify compile error
+
 * Tue Apr 19 2022 douyan <douyan@kylimos.cn> - 3.0.1-4
 - fix first install post script issue
 
