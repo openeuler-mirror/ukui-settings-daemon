@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           ukui-settings-daemon
 Version:        3.0.1
-Release:        2
+Release:        3
 Summary:        daemon handling the UKUI session settings
 License:        GPL-2.0, GPL-2+, GPL-2.1, LGPL-2.1+, GPL-3+, LGPL-2+, MIT~OldStyleWithDisclaimer+RedHat, MIT~OldStyle+RedHat
 URL:            http://www.ukui.org
@@ -122,7 +122,10 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/ &> /dev/null || :
 
 
 %changelog
-* Tue Apr 19 2022 douyan <douyan@kylimos.cn> - 3.0.1-2
+* Thu Jul 21 2022 peijiankang <peijiankang@kylinos.cn> - 3.0.1-3
+- rebuild
+
+* Tue Apr 19 2022 douyan <douyan@kylinos.cn> - 3.0.1-2
 - fix first install post script issue
 
 * Mon Oct 26 2020 douyan <douyan@kylinos.cn> - 3.0.1-1
