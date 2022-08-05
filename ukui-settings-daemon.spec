@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           ukui-settings-daemon
 Version:        3.0.1
-Release:        5
+Release:        6
 Summary:        daemon handling the UKUI session settings
 License:        GPL-2.0-or-later and GPL-3.0-or-later and LGPL-2.0-or-later 
 URL:            http://www.ukui.org
@@ -9,6 +9,8 @@ Source0:        %{name}-%{version}.tar.gz
 
 patch0:  0001-fix-dependency-issue.patch
 patch1:  0002-Modify-the-shortcut-key-prompt.patch
+patch2:	 0003-remove-depend-xserver-xorg-input-synaptics-on-s390x.patch
+
 BuildRequires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-devel glib2-devel gtk3-devel libnotify-devel nss-devel polkit-devel pulseaudio-libs-devel startup-notification-devel libX11-devel libXext-devel libXi-devel libxklavier-devel libXrandr-devel libXt-devel mate-desktop-libs xorg-x11-server-utils libusb-devel
 #x11proto-kb-devel
 BuildRequires:mate-desktop-devel >= 1.18
@@ -84,6 +86,7 @@ Requires: ukui-settings-daemon
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 ./autogen.sh --prefix=/usr --sysconfdir=/etc --libdir=/usr/lib64 --sysconfdir=/etc
@@ -123,6 +126,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/ &> /dev/null || :
 
 
 %changelog
+* Thu Aug 04 2022 tanyulong<tanyulong@kylinos.cn> - 3.0.1-6
+- remove depend xserver xorg input synaptics on s390x
+
 * Tue May 24 2022 tanyulong<tanyulong@kylinos.cn> - 3.0.1-5
 - Improve the project according to the requirements of compliance improvement
 
