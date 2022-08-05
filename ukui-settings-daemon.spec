@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           ukui-settings-daemon
 Version:        3.0.1
-Release:        6
+Release:        7
 Summary:        daemon handling the UKUI session settings
 License:        GPL-2.0, GPL-2+, GPL-2.1, LGPL-2.1+, GPL-3+, LGPL-2+, MIT~OldStyleWithDisclaimer+RedHat, MIT~OldStyle+RedHat
 URL:            http://www.ukui.org
@@ -60,7 +60,7 @@ BuildRequires: libgudev-devel
 BuildRequires: libxcb-devel
 BuildRequires: xcb-util-devel
 BuildRequires: kf5-kwindowsystem-devel
-BuildRequires: libkscreen-qt5-devel
+BuildRequires: libkscreen-qt5-devel > 5.20.90
 BuildRequires: libxkbcommon-devel
 BuildRequires: kf5-kglobalaccel-devel
 BuildRequires: qt5-qtx11extras-devel 
@@ -160,6 +160,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/ &> /dev/null || :
 
 
 %changelog
+* Fri Aug 5 2022 peijiankang <peijiankang@kylinos.cn> - 3.0.1-7
+- add the version limit of libkscreen-qt5-devel
+
 * Thu Jul 21 2022 peijiankang <peijiankang@kylinos.cn> - 3.0.1-6
 - rebuild
 
