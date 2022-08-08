@@ -1,0 +1,25 @@
+From b723b35f4fbb181b5c6bb7c2e861682d61153cd8 Mon Sep 17 00:00:00 2001
+From: tanyulong2021 <tanyulong@kylinos.cn>
+Date: Mon, 8 Aug 2022 10:52:50 +0800
+Subject: [PATCH] update Copyright and Authors information
+
+---
+ plugins/background/background.ukui-settings-plugin.in | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/plugins/background/background.ukui-settings-plugin.in b/plugins/background/background.ukui-settings-plugin.in
+index 160044b..6ba2774 100755
+--- a/plugins/background/background.ukui-settings-plugin.in
++++ b/plugins/background/background.ukui-settings-plugin.in
+@@ -3,6 +3,6 @@ Module=background
+ IAge=0
+ _Name=Background
+ _Description=Background plugin
+-Authors=
+-Copyright=Copyright © 2007
++Authors= KylinSoft
++Copyright=Copyright © 2022
+ Website=
+-- 
+2.33.0
+
