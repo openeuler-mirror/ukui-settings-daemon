@@ -1,25 +1,52 @@
 %define debug_package %{nil}
 Name:           ukui-settings-daemon
-Version:        3.0.1
-Release:        7
+Version:        3.1.2
+Release:        1
 Summary:        daemon handling the UKUI session settings
 License:        GPL-2.0-or-later and GPL-3.0-or-later and LGPL-2.0-or-later 
 URL:            http://www.ukui.org
 Source0:        %{name}-%{version}.tar.gz
+Patch1:         0001-modify-compile-error-of-ukui-settings-daemon.patch
 
-patch0:  0001-fix-dependency-issue.patch
-patch1:  0002-Modify-the-shortcut-key-prompt.patch
-patch2:	 0003-remove-depend-xserver-xorg-input-synaptics-on-s390x.patch
-patch3:  0004-update-Copyright-and-Authors-information.patch
+BuildRequires: pkgconf-pkg-config 
+BuildRequires: intltool 
+BuildRequires: qtchooser
+BuildRequires: qt5-qtbase-devel
+BuildRequires: qt5-qttools-devel
+BuildRequires: gsettings-qt-devel
+BuildRequires: qt5-qtx11extras-devel
+BuildRequires: qt5-qtsensors-devel 
+BuildRequires: kf5-kconfig-devel
+BuildRequires: qt5-qtsvg-devel
+BuildRequires: libxklavier-devel
+BuildRequires: libXtst-devel
+BuildRequires: mate-desktop-devel
+BuildRequires: gnome-desktop3-devel
+BuildRequires: libmatemixer-devel
+BuildRequires: libmatekbd-devel
+BuildRequires: pulseaudio-libs-devel
+BuildRequires: libwnck3-devel
+BuildRequires: libcanberra-devel
+BuildRequires: libwayland-client
+BuildRequires: libnotify-devel
+BuildRequires: geoclue2-devel
+BuildRequires: colord-devel
+BuildRequires: lcms2-devel
+BuildRequires: imlib2-devel 
+BuildRequires: xorg-x11-server-devel
+BuildRequires: libgudev-devel
+BuildRequires: libxcb-devel
+BuildRequires: xcb-util-devel
+BuildRequires: libX11-devel 
+BuildRequires: kf5-kwindowsystem-devel
+BuildRequires: libkscreen-qt5-devel
+BuildRequires: libxkbcommon-devel
+BuildRequires: kf5-kglobalaccel-devel
+BuildRequires: qt5-qtx11extras-devel 
+BuildRequires: ukui-interface
 
-BuildRequires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-devel glib2-devel gtk3-devel libnotify-devel nss-devel polkit-devel pulseaudio-libs-devel startup-notification-devel libX11-devel libXext-devel libXi-devel libxklavier-devel libXrandr-devel libXt-devel mate-desktop-libs xorg-x11-server-utils libusb-devel
-#x11proto-kb-devel
-BuildRequires:mate-desktop-devel >= 1.18
-BuildRequires:libmatekbd-devel >= 1.18 
-BuildRequires:libmatemixer-devel >= 1.18
-BuildRequires:mate-common >= 1.18
-Requires: mate-desktop-libs ukui-polkit ukui-settings-daemon-common imwheel xorg-x11-drv-synaptics-legacy
 
+Requires: mate-desktop-libs ukui-settings-daemon-common colord imwheel ukui-polkit x11-xserver-utils xorg-x11-drv-synaptics-legacy glib2-devel
 %description
  This package contains the daemon which is responsible for setting the
  various parameters of a UKUI session and the applications that run
@@ -38,7 +65,6 @@ Requires: mate-desktop-libs ukui-polkit ukui-settings-daemon-common imwheel xorg
  
 %package common
 Summary:	daemon handling the UKUI session settings (common files)
-Requires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-devel glib2-devel gtk3-devel libnotify-devel nss-devel polkit-devel pulseaudio-libs-devel startup-notification-devel libX11-devel libXext-devel libXi-devel libxklavier-devel libXrandr-devel libXt-devel mate-desktop-libs xorg-x11-server-utils mate-desktop-devel libmatekbd-devel libmatemixer-devel mate-common
 
 %description common
  This package contains the daemon which is responsible for setting the
@@ -58,44 +84,23 @@ Requires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-deve
  .
  This package contains the architecture independent files.
 
-
-%package devel
-Summary:	daemon handling the UKUI session settings (development files)
-Requires: intltool libcanberra-devel dbus-glib-devel dconf-devel fontconfig-devel glib2-devel gtk3-devel libnotify-devel nss-devel polkit-devel pulseaudio-libs-devel startup-notification-devel libX11-devel libXext-devel libXi-devel libxklavier-devel libXrandr-devel libXt-devel mate-desktop-libs xorg-x11-server-utils mate-desktop-devel libmatekbd-devel libmatemixer-devel mate-common
-Requires: ukui-settings-daemon
-
-%description devel
- This package contains the daemon which is responsible for setting the
- various parameters of a UKUI session and the applications that run
- under it. It handles the following kinds of settings:
- .
-  * Keyboard: layout, accessibility options, shortcuts, media keys
-  * Clipboard management
-  * Theming: background, icons, GTK+ applications
-  * Cleanup of unused files
-  * Mouse: cursors, speed, accessibility options
-  * Startup of other daemons: screensaver, sound daemon
-  * Typing break
- .
- It also sets various application settings through X resources and
- freedesktop.org XSETTINGS.
- .
- This package contains the development files for building
- ukui-settings-daemon plugins.
-
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
-./autogen.sh --prefix=/usr --sysconfdir=/etc --libdir=/usr/lib64 --sysconfdir=/etc
-make
+qmake-qt5
+make -j32
 
 %install
-make install DESTDIR=%{buildroot}
+make INSTALL_ROOT=%{buildroot} install
+mkdir -p %{buildroot}/usr/share/man/man1
+mkdir -p %{buildroot}/usr/share/man/man2
+
+gzip -c %{_builddir}/%{name}-%{version}/man/touchpad-state.1       > %{buildroot}/usr/share/man/man1/touchpad-state.1.gz
+gzip -c %{_builddir}/%{name}-%{version}/man/ukui-settings-daemon.1       > %{buildroot}/usr/share/man/man1/ukui-settings-daemon.1.gz
+gzip -c %{_builddir}/%{name}-%{version}/man/usd-locate-pointer.1         > %{buildroot}/usr/share/man/man1/usd-locate-pointer.1.gz
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -105,29 +110,31 @@ set -e &> /dev/null || :
 glib-compile-schemas /usr/share/glib-2.0/schemas/ &> /dev/null || :
 
 %files
+%doc debian/changelog debian/copyright
 %{_sysconfdir}/*
 %{_prefix}/%{_lib}/ukui-settings-daemon/
-%{_libexecdir}/ukui-settings-daemon
-%{_libexecdir}/usd-datetime-mechanism
-%{_libexecdir}/usd-locate-pointer
-%{_libexecdir}/usd-usb-monitor
 %{_datadir}/dbus-1/*
-%{_datadir}/polkit-1/
+/lib/udev/rules.d/01-touchpad-state-onmouse.rules
+/usr/bin/authoritydbus
+/usr/bin/touchpad-state
+/usr/bin/ukui-settings-daemon
+/usr/bin/ukydisplayswitch
+/usr/bin/usd-locate-pointer
+
 
 %files common
 %doc debian/changelog debian/copyright
 %{_datadir}/glib-2.0/
-%{_datadir}/icons/
 %{_datadir}/locale/
-%{_datadir}/man/
 %{_datadir}/ukui-settings-daemon/
+%{_datadir}/man/*
 
-%files devel
-%{_prefix}/include/ukui-settings-daemon/
-%{_prefix}/%{_lib}/pkgconfig/
 
 
 %changelog
+* Mon Dec 5 2022 peijiankang <peijiankang@kylinos.cn> - 3.1.2-1
+- update version to 3.1.2
+
 * Mon Aug 08 2022 tanyulong<tanyulong@kylinos.cn> - 3.0.1-7
 - update Copyright and Authors information
 
