@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           ukui-settings-daemon
 Version:        3.1.2
-Release:        1
+Release:        2
 Summary:        daemon handling the UKUI session settings
 License:        GPL-2.0-or-later and GPL-3.0-or-later and LGPL-2.0-or-later 
 URL:            http://www.ukui.org
@@ -46,7 +46,7 @@ BuildRequires: qt5-qtx11extras-devel
 BuildRequires: ukui-interface
 
 
-Requires: mate-desktop-libs ukui-settings-daemon-common colord imwheel ukui-polkit x11-xserver-utils xorg-x11-drv-synaptics-legacy glib2-devel
+Requires: mate-desktop-libs ukui-settings-daemon-common colord imwheel ukui-polkit xorg-x11-server-utils xorg-x11-drv-synaptics-legacy glib2-devel
 %description
  This package contains the daemon which is responsible for setting the
  various parameters of a UKUI session and the applications that run
@@ -132,6 +132,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/ &> /dev/null || :
 
 
 %changelog
+* Tue Dec 6 2022 peijiankang <peijiankang@kylinos.cn> - 3.1.2-2
+- modify install error
+
 * Mon Dec 5 2022 peijiankang <peijiankang@kylinos.cn> - 3.1.2-1
 - update version to 3.1.2
 
