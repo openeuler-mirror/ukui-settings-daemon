@@ -1,7 +1,6 @@
-%define debug_package %{nil}
 Name:           ukui-settings-daemon
 Version:        3.1.2
-Release:        2
+Release:        3
 Summary:        daemon handling the UKUI session settings
 License:        GPL-2.0-or-later and GPL-3.0-or-later and LGPL-2.0-or-later 
 URL:            http://www.ukui.org
@@ -89,8 +88,8 @@ Summary:	daemon handling the UKUI session settings (common files)
 %patch1 -p1
 
 %build
-qmake-qt5
-make -j32
+%{qmake_qt5}
+%{make_build}
 
 %install
 make INSTALL_ROOT=%{buildroot} install
@@ -132,6 +131,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/ &> /dev/null || :
 
 
 %changelog
+* Wed Jan 18 2023 peijiankang <peijiankang@kylinos.cn> - 3.1.2-3
+- add build debuginfo and debugsource
+
 * Tue Dec 6 2022 peijiankang <peijiankang@kylinos.cn> - 3.1.2-2
 - modify install error
 
