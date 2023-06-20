@@ -1,6 +1,6 @@
 Name:           ukui-settings-daemon
 Version:        3.1.2
-Release:        3
+Release:        4
 Summary:        daemon handling the UKUI session settings
 License:        GPL-2.0-or-later and GPL-3.0-or-later and LGPL-2.0-or-later 
 URL:            http://www.ukui.org
@@ -88,7 +88,13 @@ Summary:	daemon handling the UKUI session settings (common files)
 %patch1 -p1
 
 %build
-%{qmake_qt5}
+%if "%toolchain" == "clang"
+	export CFLAGS="$CFLAGS -Wno-error=return-type -Wno-error=non-pod-varargs"
+	export CXXFLAGS="$CXXFLAGS -Wno-error=return-type -Wno-error=non-pod-varargs"
+	%{qmake_qt5} -spec linux-clang
+%else 
+	%{qmake_qt5}
+%endif
 %{make_build}
 
 %install
@@ -131,6 +137,9 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/ &> /dev/null || :
 
 
 %changelog
+* Tue Jun 20 2023 yoo <sunyuechi@iscas.ac.cn> - 3.1.2-4
+- fix clang build error
+
 * Wed Jan 18 2023 peijiankang <peijiankang@kylinos.cn> - 3.1.2-3
 - add build debuginfo and debugsource
 
